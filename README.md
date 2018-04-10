@@ -8,3 +8,5 @@ There is also a chart for the overall mhs, and one for the "per gpu" mhs.
 Requires .NET 4.5.2, and Newtonsoft.Json NuGet package.
 
 Ip + port settings stored per user.
+
+[Download the release file](./Releases/1.0.zip)
