@@ -28,7 +28,7 @@ namespace Claymore_watcher
             lblGpuTempFan.Text = cm.GetGpuTempFanStr();
             chartTotal.Series.Clear();
             chartGpu.Series.Clear();
-            if (cm.GetTotalMhsHist().Count <= 0)
+            if (cm.GetTotalMhsHist().Count <= 1)
             {
                 return;//no data yet
             }
@@ -41,16 +41,19 @@ namespace Claymore_watcher
             int i = 0;
             foreach (long tmp in cm.GetTotalMhsHist())
             {
-                series1.Points.AddXY(i, tmp/1000);
+                series1.Points.AddXY(i, tmp / 1000.0f);
                 ++i;
             }
 
-            chartTotal.ChartAreas[0].AxisY.Minimum = cm.GetTotalMhsHist().Min() * 0.95 / 1000;
-            chartTotal.ChartAreas[0].AxisY.Maximum = cm.GetTotalMhsHist().Max() * 1.05 / 1000;
+            chartTotal.Series.Add(series1);
+
+            chartTotal.ChartAreas[0].AxisY.Minimum = cm.GetTotalMhsHist().Min() * 0.95 / 1000.0;
+            chartTotal.ChartAreas[0].AxisY.Maximum = cm.GetTotalMhsHist().Max() * 1.05 / 1000.0;
             chartTotal.ChartAreas[0].AxisX.Minimum = 0;
             chartTotal.ChartAreas[0].AxisX.Maximum = CmApi.HIST_MAX_NUM;
-            
-            chartTotal.Series.Add(series1);
+
+            chartTotal.ChartAreas[0].AxisY.LabelStyle.Format = "######";
+
             //Per GPU datas
             int gpuNum = cm.GetGpuNum();
             chartGpu.Series.Clear();
@@ -59,12 +62,11 @@ namespace Claymore_watcher
             {
                 series[i] = new System.Windows.Forms.DataVisualization.Charting.Series();
                 series[i].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-                series[i].BorderWidth = 3;
+                series[i].BorderWidth = 2;
                 series[i].IsVisibleInLegend = true;
                 series[i].IsXValueIndexed = false;
                 series[i].Name = "GPU " + i.ToString();
             }
-            int x = 0;
             float minValue = 9999999999;
             float maxValue = 0;
             float mhsToAdd = 0;
@@ -75,22 +77,23 @@ namespace Claymore_watcher
                     mhsToAdd = 0;
                     if (tmp.mhsGpu.Length == gpuNum) //if there is not enough gpu, show there is an error.
                     {
-                        mhsToAdd = tmp.mhsGpu[i] / 1000;
+                        mhsToAdd = tmp.mhsGpu[i] / 1000.0f;
                     }
                     series[i].Points.Add(mhsToAdd);
                     if (minValue > mhsToAdd) minValue = mhsToAdd;
                     if (maxValue < mhsToAdd) maxValue = mhsToAdd;
                 }
-                ++x;
             }
-            chartGpu.ChartAreas[0].AxisY.Minimum = minValue * 0.95;
-            chartGpu.ChartAreas[0].AxisY.Maximum = maxValue * 1.05;
-            chartGpu.ChartAreas[0].AxisX.Minimum = 0;
-            chartGpu.ChartAreas[0].AxisX.Maximum = CmApi.HIST_MAX_NUM;
+            
             for (i = 0; i < gpuNum; ++i)
             {
                 chartGpu.Series.Add(series[i]);
             }
+            chartGpu.ChartAreas[0].AxisY.LabelStyle.Format = "######";
+            chartGpu.ChartAreas[0].AxisY.Minimum = minValue * 0.95;
+            chartGpu.ChartAreas[0].AxisY.Maximum = maxValue * 1.05;
+            chartGpu.ChartAreas[0].AxisX.Minimum = 0;
+            chartGpu.ChartAreas[0].AxisX.Maximum = CmApi.HIST_MAX_NUM;
         }
     }
 }
