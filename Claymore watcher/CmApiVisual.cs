@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows.Forms;
 
 namespace Claymore_watcher
@@ -52,7 +45,7 @@ namespace Claymore_watcher
             chartTotal.ChartAreas[0].AxisX.Minimum = 0;
             chartTotal.ChartAreas[0].AxisX.Maximum = CmApi.HIST_MAX_NUM;
 
-            chartTotal.ChartAreas[0].AxisY.LabelStyle.Format = "######";
+            chartTotal.ChartAreas[0].AxisY.LabelStyle.Format = "######.#";
 
             //Per GPU datas
             int gpuNum = cm.GetGpuNum();
@@ -89,7 +82,7 @@ namespace Claymore_watcher
             {
                 chartGpu.Series.Add(series[i]);
             }
-            chartGpu.ChartAreas[0].AxisY.LabelStyle.Format = "######";
+            chartGpu.ChartAreas[0].AxisY.LabelStyle.Format = "######.#";
             chartGpu.ChartAreas[0].AxisY.Minimum = minValue * 0.95;
             chartGpu.ChartAreas[0].AxisY.Maximum = maxValue * 1.05;
             chartGpu.ChartAreas[0].AxisX.Minimum = 0;

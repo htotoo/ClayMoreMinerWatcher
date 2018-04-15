@@ -19,6 +19,7 @@ namespace Claymore_watcher
             InitializeComponent();
             isInited = false;
             LoadUrls();
+            tbUpdateIntervall.Value = Settings.Default.updateIntSec;
         }
 
 
@@ -112,7 +113,14 @@ namespace Claymore_watcher
                 timer1.Enabled = false;
                 return; //already running, don't enable it, to start twice
             }
+            if (chkAuto.Checked)
+            {
+                //was not checked, just checked it. fire an update, and after the update process the timer will be enabled, so i don't have to enable it right here.
+                Timer1_TickAsync(null, null); 
+                return;
+            }
             timer1.Enabled = chkAuto.Checked;
+            
         }
 
         private async void Timer1_TickAsync(object sender, EventArgs e)
@@ -158,5 +166,14 @@ namespace Claymore_watcher
             SaveUrls(wtd);
             Init();
         }
+
+        private void tbUpdateIntervall_ValueChanged(object sender, EventArgs e)
+        {
+            timer1.Interval = tbUpdateIntervall.Value * 1000;
+            lblUpdateInterval.Text = tbUpdateIntervall.Value.ToString() + " sec / update";
+            Settings.Default.updateIntSec = tbUpdateIntervall.Value;
+            Settings.Default.Save();
+        }
+
     }
 }

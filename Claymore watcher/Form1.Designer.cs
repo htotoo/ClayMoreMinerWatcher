@@ -35,8 +35,11 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
-            this.cmApiVisual1 = new Claymore_watcher.CmApiVisual();
             this.btnClearErr = new System.Windows.Forms.Button();
+            this.tbUpdateIntervall = new System.Windows.Forms.TrackBar();
+            this.lblUpdateInterval = new System.Windows.Forms.Label();
+            this.cmApiVisual1 = new Claymore_watcher.CmApiVisual();
+            ((System.ComponentModel.ISupportInitialize)(this.tbUpdateIntervall)).BeginInit();
             this.SuspendLayout();
             // 
             // txtSumm
@@ -92,16 +95,6 @@
             this.btnDel.UseVisualStyleBackColor = true;
             this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
             // 
-            // cmApiVisual1
-            // 
-            this.cmApiVisual1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmApiVisual1.Location = new System.Drawing.Point(12, 204);
-            this.cmApiVisual1.MinimumSize = new System.Drawing.Size(659, 471);
-            this.cmApiVisual1.Name = "cmApiVisual1";
-            this.cmApiVisual1.Size = new System.Drawing.Size(964, 493);
-            this.cmApiVisual1.TabIndex = 9;
-            // 
             // btnClearErr
             // 
             this.btnClearErr.Location = new System.Drawing.Point(174, 175);
@@ -112,11 +105,42 @@
             this.btnClearErr.UseVisualStyleBackColor = true;
             this.btnClearErr.Click += new System.EventHandler(this.btnClearErr_Click);
             // 
+            // tbUpdateIntervall
+            // 
+            this.tbUpdateIntervall.Location = new System.Drawing.Point(411, 8);
+            this.tbUpdateIntervall.Maximum = 30;
+            this.tbUpdateIntervall.Minimum = 1;
+            this.tbUpdateIntervall.Name = "tbUpdateIntervall";
+            this.tbUpdateIntervall.Size = new System.Drawing.Size(256, 45);
+            this.tbUpdateIntervall.TabIndex = 11;
+            this.tbUpdateIntervall.Value = 1;
+            this.tbUpdateIntervall.ValueChanged += new System.EventHandler(this.tbUpdateIntervall_ValueChanged);
+            // 
+            // lblUpdateInterval
+            // 
+            this.lblUpdateInterval.AutoSize = true;
+            this.lblUpdateInterval.Location = new System.Drawing.Point(673, 13);
+            this.lblUpdateInterval.Name = "lblUpdateInterval";
+            this.lblUpdateInterval.Size = new System.Drawing.Size(80, 13);
+            this.lblUpdateInterval.TabIndex = 12;
+            this.lblUpdateInterval.Text = "1 sec /  update";
+            // 
+            // cmApiVisual1
+            // 
+            this.cmApiVisual1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmApiVisual1.Location = new System.Drawing.Point(12, 204);
+            this.cmApiVisual1.MinimumSize = new System.Drawing.Size(659, 471);
+            this.cmApiVisual1.Name = "cmApiVisual1";
+            this.cmApiVisual1.Size = new System.Drawing.Size(964, 493);
+            this.cmApiVisual1.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(988, 704);
+            this.Controls.Add(this.lblUpdateInterval);
             this.Controls.Add(this.btnClearErr);
             this.Controls.Add(this.cmApiVisual1);
             this.Controls.Add(this.btnDel);
@@ -124,8 +148,10 @@
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.chkAuto);
             this.Controls.Add(this.txtSumm);
+            this.Controls.Add(this.tbUpdateIntervall);
             this.Name = "Form1";
-            this.Text = "Claymore watcher - test form";
+            this.Text = "Claymore Miner Watcher";
+            ((System.ComponentModel.ISupportInitialize)(this.tbUpdateIntervall)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -140,6 +166,8 @@
         private System.Windows.Forms.Button btnDel;
         private CmApiVisual cmApiVisual1;
         private System.Windows.Forms.Button btnClearErr;
+        private System.Windows.Forms.TrackBar tbUpdateIntervall;
+        private System.Windows.Forms.Label lblUpdateInterval;
     }
 }
 
