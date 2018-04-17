@@ -170,10 +170,13 @@ namespace Claymore_watcher
 
                 tmp = (string)jArray.ElementAt(6); //Temperature and Fan speed(%) pairs for all GPUs.
                 tmpSArr = tmp.Split(';');
-                for (int i = 0; i < gpuNum; ++i)
+                if (tmpSArr.Length >= gpuNum * 2 && tmp.Length>=1)
                 {
-                    int.TryParse(tmpSArr[i * 2], out tempGpu[i]);
-                    int.TryParse(tmpSArr[i * 2 + 1], out fanGpu[i]);
+                    for (int i = 0; i < gpuNum; ++i)
+                    {
+                        int.TryParse(tmpSArr[i * 2], out tempGpu[i]);
+                        int.TryParse(tmpSArr[i * 2 + 1], out fanGpu[i]);
+                    }
                 }
                 //Add the arrays to the history
                 CmApiGpuDataHolder cmApiGpuData = new CmApiGpuDataHolder();
@@ -228,18 +231,24 @@ namespace Claymore_watcher
         public string GetGpuMhsesStr()
         {
             string ret = "GPU MHS: ";
-            for (int i = 0; i < gpuNum; ++i)
+            if (gpuDatas.Count >= 1)
             {
-                ret += "(" + i.ToString() + "): " + GetMhsStr(gpuDatas.Last().mhsGpu[i]) + "  ";
+                for (int i = 0; i < gpuNum; ++i)
+                {
+                    ret += "(" + i.ToString() + "): " + GetMhsStr(gpuDatas.Last().mhsGpu[i]) + "  ";
+                }
             }
             return ret;
         }
         public string GetGpuTempFanStr()
         {
             string ret = "GPU T+F:  ";
-            for (int i = 0; i < gpuNum; ++i)
+            if (gpuDatas.Count >= 1)
             {
-                ret += "(" + i.ToString() + "): " + gpuDatas.Last().tempGpu[i].ToString() + "°C, " + gpuDatas.Last().fanGpu[i].ToString() + "%   ";
+                for (int i = 0; i < gpuNum; ++i)
+                {
+                    ret += "(" + i.ToString() + "): " + gpuDatas.Last().tempGpu[i].ToString() + "°C, " + gpuDatas.Last().fanGpu[i].ToString() + "%   ";
+                }
             }
             return ret;
         }

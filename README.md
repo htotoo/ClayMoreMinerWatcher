@@ -9,4 +9,4 @@ Requires .NET 4.5.2, and Newtonsoft.Json NuGet package.
 
 Ip + port settings stored per user.
 
-[Download the release file](./Releases/1.1.zip)
+[Download the release file](./Releases/1.1.1.zip)
